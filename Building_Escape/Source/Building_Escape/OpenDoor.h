@@ -14,24 +14,31 @@ class BUILDING_ESCAPE_API UOpenDoor : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UOpenDoor();
-
-protected:
+	
+	
 	// Called when the game starts
 	virtual void BeginPlay() override;
-
+	
 	void OpenDoor();
-
-public:	
+	void CloseDoor();
+	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	
 
 private:
-	UPROPERTY(VisibleAnywhere)
-	float OpenAngle = 90.0f;
+	UPROPERTY(EditAnywhere)
+	float OpenAngle = -90.0f;
+	float CloseAngle = 0.0f;
 
 	UPROPERTY(EditAnywhere)
 	ATriggerVolume* PressurePlate;
 
+	UPROPERTY(EditAnywhere)
+		float DoorCloseDelay = 1.f;
+		float LastDoorOpenTime;
+
 	//UPROPERTY(EditAnywhere)
-	AActor* ActorThatOpens;
+	AActor* ActorThatOpens; // Remembering pawn inherited from pawn
+	AActor* Owner;			// actor owning a door
 };
