@@ -28,6 +28,8 @@ class BUILDING_ESCAPE_API UGrabber : public UActorComponent
 		void FindPhysicsHandleComponent(); //find attached physics handle
 		void SetupInputComponent(); //setup attached input component
 		const FHitResult GetFirstPhysicsBodyInReach(); //Return hit for first physics body in reach
+		FVector GetReachLineStart();//Return current start of reach line
+		FVector GetReachLineEnd(); //Return current end of reach line
 
 	protected:
 		// Called when the game starts
