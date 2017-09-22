@@ -24,6 +24,7 @@ void UGrabber::BeginPlay()
 //find attached physics
 void UGrabber::FindPhysicsHandleComponent()
 {
+	
 	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
 	if (PhysicsHandle == nullptr)
 	{
@@ -35,6 +36,7 @@ void UGrabber::SetupInputComponent()
 {
 	//Look for attached physics handle
 	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
+	
 	if (InputComponent)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("%s - input component found"), *GetOwner()->GetName())
@@ -52,15 +54,13 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-
-
+	if (!PhysicsHandle) { return; }
 	//if the physics handle is attached 
 	if (PhysicsHandle->GrabbedComponent)
 	{
 		//move object that player is holding
 		PhysicsHandle->SetTargetLocation(GetReachLineEnd());
 	}
-
 }
 
 void UGrabber::Grab()
@@ -71,20 +71,24 @@ void UGrabber::Grab()
 	auto ActorHit = HitResult.GetActor();
 
 	//If we hit something then attach a physics handle
+
 	if (ActorHit != nullptr) {
+		if (!PhysicsHandle) { return; }
 		// attach physics handle
-		PhysicsHandle->GrabComponent(
+		PhysicsHandle->GrabComponentAtLocation(
 			ComponentToGrab,
 			NAME_None, //no bones needed
-			ComponentToGrab->GetOwner()->GetActorLocation(),
-			true //allow rotation
+			ComponentToGrab->GetOwner()->GetActorLocation()
+			//true //allow rotation
 		);
 	}
 }
 
 void UGrabber::Release()
 {
+	if (!PhysicsHandle) { return; }
 	PhysicsHandle->ReleaseComponent();
+	
 }
 
 const FHitResult UGrabber::GetFirstPhysicsBodyInReach()
