@@ -10,7 +10,7 @@ UGrabber::UGrabber()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-	
+
 }
 
 // Called when the game starts
@@ -25,7 +25,7 @@ void UGrabber::BeginPlay()
 void UGrabber::FindPhysicsHandleComponent()
 {
 	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
-	if (PhysicsHandle==nullptr)
+	if (PhysicsHandle == nullptr)
 	{
 		UE_LOG(LogTemp, Error, TEXT("%s missing physics handle component"), *GetOwner()->GetName());
 	}
@@ -38,7 +38,7 @@ void UGrabber::SetupInputComponent()
 	if (InputComponent)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("%s - input component found"), *GetOwner()->GetName())
-		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
+			InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
 		InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::Release);
 	}
 	else
@@ -53,17 +53,17 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 
-	
+
 	//if the physics handle is attached 
 	if (PhysicsHandle->GrabbedComponent)
 	{
 		//move object that player is holding
 		PhysicsHandle->SetTargetLocation(GetReachLineEnd());
 	}
-	
+
 }
 
-void UGrabber::Grab() 
+void UGrabber::Grab()
 {
 	//Try and reach any actors with physics body collision channel set
 	auto HitResult = GetFirstPhysicsBodyInReach();

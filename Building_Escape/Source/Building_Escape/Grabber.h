@@ -12,27 +12,27 @@ class BUILDING_ESCAPE_API UGrabber : public UActorComponent
 {
 	GENERATED_BODY()
 
-	public:
-		// Called every frame
-		virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-		UGrabber();
+public:
+	// Called every frame
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	UGrabber();
 
-	private:
-		float Reach = 100.f;
+private:
+	float Reach = 100.f;
 
-		UPhysicsHandleComponent* PhysicsHandle = nullptr;
-		UInputComponent* InputComponent=nullptr;
-	
-		void Grab(); //raycasts and grabs what's in reach
-		void Release(); // called when grabber released
-		void FindPhysicsHandleComponent(); //find attached physics handle
-		void SetupInputComponent(); //setup attached input component
-		const FHitResult GetFirstPhysicsBodyInReach(); //Return hit for first physics body in reach
-		FVector GetReachLineStart();//Return current start of reach line
-		FVector GetReachLineEnd(); //Return current end of reach line
-		float GetTotalMassOfActorsOnPlate();
+	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+	UInputComponent* InputComponent = nullptr;
 
-	protected:
-		// Called when the game starts
-		virtual void BeginPlay() override;
+	void Grab(); //raycasts and grabs what's in reach
+	void Release(); // called when grabber released
+	void FindPhysicsHandleComponent(); //find attached physics handle
+	void SetupInputComponent(); //setup attached input component
+	const FHitResult GetFirstPhysicsBodyInReach(); //Return hit for first physics body in reach
+	FVector GetReachLineStart();//Return current start of reach line
+	FVector GetReachLineEnd(); //Return current end of reach line
+	float GetTotalMassOfActorsOnPlate();
+
+protected:
+	// Called when the game starts
+	virtual void BeginPlay() override;
 };
