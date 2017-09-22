@@ -30,9 +30,9 @@ class BUILDING_ESCAPE_API UGrabber : public UActorComponent
 		const FHitResult GetFirstPhysicsBodyInReach(); //Return hit for first physics body in reach
 		FVector GetReachLineStart();//Return current start of reach line
 		FVector GetReachLineEnd(); //Return current end of reach line
+		float GetTotalMassOfActorsOnPlate();
 
 	protected:
 		// Called when the game starts
 		virtual void BeginPlay() override;
-		
 };

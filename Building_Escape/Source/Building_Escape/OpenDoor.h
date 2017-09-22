@@ -41,4 +41,5 @@ private:
 	//UPROPERTY(EditAnywhere)
 	AActor* ActorThatOpens; // Remembering pawn inherited from pawn
 	AActor* Owner;			// actor owning a door
+	float GetTotalMassOfActorsOnPlate();
 };
